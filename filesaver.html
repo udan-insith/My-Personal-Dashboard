@@ -19,6 +19,29 @@
             machine.
           </p>
         </div>
+
+        <div class="dropzone" id="dropzone">
+          <svg class="dropzone-icon" viewBox="0 0 24 24">
+            <path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16" />
+          </svg>
+          <div class="dropzone-text">Drag files here, or click to browse</div>
+          <div class="dropzone-sub">
+            Any file type &middot; stored in this browser only
+          </div>
+          <input type="file" id="file-input" multiple />
+        </div>
+
+        <div class="storage-meter">
+          <span id="storage-label">0 files</span>
+          <div class="storage-track">
+            <div class="storage-fill" id="storage-fill"></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>Saved files</h3>
+          <div id="file-list"></div>
+        </div>
       </main>
     </div>
   </body>
