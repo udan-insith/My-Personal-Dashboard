@@ -20,3 +20,64 @@
     0 0 24px rgba(0, 255, 178, 0.15);
   animation: dashPulse 1s linear infinite;
 }
+
+@keyframes dashPulse {
+  0% {
+    border-style: dashed;
+  }
+  100% {
+    border-style: dashed;
+  }
+}
+.dropzone-icon {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 12px;
+  stroke: var(--neon);
+  fill: none;
+  stroke-width: 1.6;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+@keyframes floatIcon {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+.dropzone-text {
+  font-size: 13px;
+  color: var(--text);
+}
+.dropzone-sub {
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 6px;
+}
+#file-input {
+  display: none;
+}
+
+.storage-meter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  font-size: 12px;
+  color: var(--dim);
+}
+.storage-track {
+  flex: 1;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.storage-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--neon-3), var(--neon-2));
+  width: 0;
+  transition: width 0.5s ease;
+}
