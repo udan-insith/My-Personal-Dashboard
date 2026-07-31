@@ -127,6 +127,19 @@ body::after {
   }
 }
 
+/* ---------- app shell ---------- */
+.app-shell {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 100vh;
+}
+.main {
+  flex: 1;
+  padding: 36px 40px;
+  max-width: 1180px;
+}
+
 /* ---------- sidebar ---------- */
 .sidebar {
   width: var(--sidebar-w);
