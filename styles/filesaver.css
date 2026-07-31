@@ -155,3 +155,21 @@
   justify-content: center;
   transition: all 0.18s ease;
 }
+
+.icon-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+.icon-btn:hover {
+  color: var(--neon);
+  border-color: var(--neon);
+  box-shadow: 0 0 10px rgba(0, 255, 178, 0.2);
+}
+.icon-btn.danger:hover {
+  color: var(--danger);
+  border-color: var(--danger);
+  box-shadow: 0 0 10px rgba(255, 92, 122, 0.2);
+}
