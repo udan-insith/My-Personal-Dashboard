@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap");
+
+:root {
+  --bg: #05070a;
+  --panel: #0b0f14;
+  --panel-2: #0e141b;
+  --line: rgba(0, 255, 178, 0.16);
+  --line-soft: rgba(0, 255, 178, 0.08);
+  --neon: #00ffb2;
+  --neon-2: #ff2ec4;
+  --neon-3: #4dc9ff;
+  --text: #d6ffe9;
+  --dim: #5c7a72;
+  --danger: #ff5c7a;
+  --radius: 10px;
+  --sidebar-w: 230px;
+}
