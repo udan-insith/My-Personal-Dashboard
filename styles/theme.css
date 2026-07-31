@@ -358,3 +358,46 @@ body::after {
     box-shadow: 0 0 22px rgba(0, 255, 178, 0.12);
   }
 }
+
+/* ---------- buttons ---------- */
+.btn {
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  border: 1px solid var(--neon);
+  color: var(--neon);
+  background: rgba(0, 255, 178, 0.05);
+  padding: 9px 16px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:hover {
+  background: rgba(0, 255, 178, 0.14);
+  box-shadow: 0 0 16px rgba(0, 255, 178, 0.25);
+  transform: translateY(-1px);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn.ghost {
+  border-color: var(--line);
+  color: var(--dim);
+  background: transparent;
+}
+.btn.ghost:hover {
+  color: var(--text);
+  border-color: var(--neon);
+}
+.btn.danger {
+  border-color: var(--danger);
+  color: var(--danger);
+  background: rgba(255, 92, 122, 0.06);
+}
+.btn.danger:hover {
+  background: rgba(255, 92, 122, 0.16);
+  box-shadow: 0 0 16px rgba(255, 92, 122, 0.25);
+}
