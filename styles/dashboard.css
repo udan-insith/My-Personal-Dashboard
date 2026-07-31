@@ -225,3 +225,34 @@
   stroke-width: 2;
   transition: transform 0.2s ease;
 }
+
+/* activity feed */
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 2px;
+  border-bottom: 1px dashed var(--line-soft);
+  font-size: 13px;
+}
+.activity-item:last-child {
+  border-bottom: none;
+}
+.activity-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--neon);
+  box-shadow: 0 0 6px var(--neon);
+  flex-shrink: 0;
+}
+.activity-time {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--dim);
+}
+.empty-note {
+  color: var(--dim);
+  font-size: 12px;
+  padding: 8px 2px;
+}
