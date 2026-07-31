@@ -32,3 +32,48 @@
   color: var(--neon);
   text-shadow: 0 0 12px rgba(0, 255, 178, 0.35);
 }
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* donut */
+.donut-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.donut-svg {
+  filter: drop-shadow(0 0 6px rgba(0, 255, 178, 0.25));
+}
+.donut-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 14;
+}
+.donut-fill {
+  fill: none;
+  stroke: url(#donutGrad);
+  stroke-width: 14;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.donut-center {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 28px;
+  fill: var(--text);
+}
+.donut-sub {
+  font-size: 11px;
+  fill: var(--dim);
+  font-family: "JetBrains Mono", monospace;
+}
+.donut-legend {
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--dim);
+  text-align: center;
+}
