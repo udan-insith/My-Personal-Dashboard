@@ -275,3 +275,29 @@ body::after {
   padding: 10px 12px 0;
   letter-spacing: 0.05em;
 }
+
+/* ---------- shared headings ---------- */
+.page-head {
+  margin-bottom: 28px;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: rise 0.5s ease forwards;
+}
+.page-title {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  margin: 0 0 6px;
+  letter-spacing: -0.2px;
+}
+.page-sub {
+  color: var(--dim);
+  font-size: 13px;
+  margin: 0;
+}
+@keyframes rise {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
