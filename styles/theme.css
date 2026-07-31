@@ -15,3 +15,51 @@
   --radius: 10px;
   --sidebar-w: 230px;
 }
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "JetBrains Mono", monospace;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ---------- ambient background: animated grid + vignette ---------- */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 255, 178, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 178, 0.05) 1px, transparent 1px);
+  background-size: 42px 42px;
+  animation: gridDrift 18s linear infinite;
+  mask-image: radial-gradient(
+    circle at 30% 20%,
+    rgba(0, 0, 0, 0.9),
+    transparent 75%
+  );
+}
+@keyframes gridDrift {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      42px 42px,
+      42px 42px;
+  }
+}
