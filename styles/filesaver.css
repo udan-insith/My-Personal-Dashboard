@@ -81,3 +81,77 @@
   width: 0;
   transition: width 0.5s ease;
 }
+
+.file-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line-soft);
+  opacity: 0;
+  transform: translateY(6px);
+  animation: rise 0.35s ease forwards;
+}
+.file-row:last-child {
+  border-bottom: none;
+}
+.file-row.removing {
+  animation: fadeOutFile 0.28s ease forwards;
+}
+@keyframes fadeOutFile {
+  to {
+    opacity: 0;
+    transform: translateX(16px);
+    height: 0;
+    padding: 0;
+  }
+}
+
+.file-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+  background: rgba(0, 255, 178, 0.05);
+  color: var(--neon);
+  text-transform: uppercase;
+}
+.file-info {
+  flex: 1;
+  min-width: 0;
+}
+.file-name {
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.file-meta {
+  font-size: 11px;
+  color: var(--dim);
+  margin-top: 2px;
+}
+.file-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.icon-btn {
+  background: none;
+  border: 1px solid var(--line);
+  color: var(--dim);
+  cursor: pointer;
+  padding: 7px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.18s ease;
+}
