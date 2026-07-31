@@ -63,3 +63,27 @@ body::before {
       42px 42px;
   }
 }
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 255, 178, 0.025) 0px,
+    rgba(0, 255, 178, 0.025) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  animation: scan 7s linear infinite;
+}
+@keyframes scan {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(3px);
+  }
+}
