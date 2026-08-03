@@ -27,3 +27,57 @@ function renderStats(): void {
     streak + (streak === 1 ? " day" : " days");
   document.getElementById("stat-files")!.textContent = String(files);
 }
+
+function renderDonut(): void {
+  const stats = DashApp.completionStats();
+  const r = 70;
+  const circumference = 2 * Math.PI * r;
+  const offset = circumference - (stats.pct / 100) * circumference;
+  const fill = document.getElementById(
+    "donut-fill",
+  ) as unknown as SVGCircleElement;
+  const center = document.getElementById("donut-center-text")!;
+  fill.style.strokeDasharray = String(circumference);
+  // animate from full offset on first paint
+  requestAnimationFrame(() => {
+    fill.style.strokeDashoffset = String(offset);
+  });
+  center.textContent = stats.pct + "%";
+}
+
+function renderBarChart(): void {
+  const history = DashApp.getHistory();
+  const container = document.getElementById("bar-chart")!;
+  container.innerHTML = "";
+
+  if (history.length === 0) {
+    container.innerHTML = `<p class="empty-note">No history yet — completion data will appear here once you check off tasks over a few days.</p>`;
+    return;
+  }
+
+  // Always show the last 7 available days, oldest to newest.
+  const points = history.slice(-7);
+
+  points.forEach(
+    (p: { date: string; done: number; total: number }, i: number) => {
+      const pct = p.total === 0 ? 0 : Math.round((p.done / p.total) * 100);
+      const col = document.createElement("div");
+      col.className = "bar-col";
+      const d = new Date(p.date + "T00:00:00");
+      const label = d.toLocaleDateString(undefined, { weekday: "short" });
+      col.innerHTML = `
+      <div class="bar-tooltip">${d.toLocaleDateString(undefined, { month: "short", day: "numeric" })} &middot; ${pct}% (${p.done}/${p.total})</div>
+      <div class="bar-track"><div class="bar-fill" data-pct="${pct}"></div></div>
+      <div class="bar-label">${label}</div>
+    `;
+      container.appendChild(col);
+      const fill = col.querySelector(".bar-fill") as HTMLElement;
+      setTimeout(
+        () => {
+          fill.style.height = Math.max(pct, 3) + "%";
+        },
+        80 * i + 100,
+      );
+    },
+  );
+}
