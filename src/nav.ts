@@ -33,3 +33,45 @@ const NAV_LINKS: NavLink[] = [
     icon: "M12 2l1.6 4.9L18.5 8l-4.9 1.6L12 14.5l-1.6-4.9L5.5 8l4.9-1.1z",
   },
 ];
+
+function renderSidebar(activeId: string): void {
+  const root = document.getElementById("sidebar-root");
+  if (!root) return;
+
+  const stats = DashApp.completionStats();
+
+  root.innerHTML = `
+    <div class="side-brand">
+      <span class="brand-dot"></span>
+      <span class="brand-text">NEXUS<span class="brand-accent">.</span></span>
+    </div>
+    <nav class="side-nav">
+      ${NAV_LINKS.map(
+        (l) => `
+        <a class="side-link ${l.id === activeId ? "active" : ""}" href="${l.href}">
+          <svg viewBox="0 0 24 24" class="side-icon"><path d="${l.icon}"/></svg>
+          <span>${l.label}</span>
+        </a>`,
+      ).join("")}
+    </nav>
+    <div class="side-mini">
+      <div class="side-mini-label">today's progress</div>
+      <div class="side-mini-track"><div class="side-mini-fill" style="width:${stats.pct}%"></div></div>
+      <div class="side-mini-pct">${stats.pct}% &middot; ${stats.done}/${stats.total}</div>
+    </div>
+    <div class="side-clock" id="side-clock"></div>
+  `;
+
+  const clockEl = document.getElementById("side-clock");
+  const tick = () => {
+    if (!clockEl) return;
+    const now = new Date();
+    clockEl.textContent = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  };
+  tick();
+  setInterval(tick, 1000);
+}
