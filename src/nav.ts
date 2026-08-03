@@ -1,0 +1,35 @@
+declare var DashApp: any;
+
+interface NavLink {
+  href: string;
+  label: string;
+  icon: string;
+  id: string;
+}
+
+const NAV_LINKS: NavLink[] = [
+  {
+    id: "dashboard",
+    href: "index.html",
+    label: "Dashboard",
+    icon: "M4 13h6V4H4v9zm0 7h6v-5H4v5zm10 0h6V11h-6v9zm0-16v5h6V4h-6z",
+  },
+  {
+    id: "todo",
+    href: "todo.html",
+    label: "To-Do List",
+    icon: "M9 11l3 3L22 4M4 6h.01M4 12h.01M4 18h.01M9 6h11M9 18h11",
+  },
+  {
+    id: "filesaver",
+    href: "filesaver.html",
+    label: "File Saver",
+    icon: "M21 15a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2z",
+  },
+  {
+    id: "ai",
+    href: "ai-navigator.html",
+    label: "AI Navigator",
+    icon: "M12 2l1.6 4.9L18.5 8l-4.9 1.6L12 14.5l-1.6-4.9L5.5 8l4.9-1.1z",
+  },
+];
