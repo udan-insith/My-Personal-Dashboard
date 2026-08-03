@@ -137,3 +137,65 @@ function escapeHtml(s: string): string {
   div.textContent = s;
   return div.innerHTML;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderSidebar("filesaver");
+  updateFileCount().then(renderFiles);
+
+  const dropzone = document.getElementById("dropzone")!;
+  const input = document.getElementById("file-input") as HTMLInputElement;
+
+  dropzone.addEventListener("click", () => input.click());
+  input.addEventListener("change", () => {
+    if (input.files && input.files.length) addFiles(input.files);
+    input.value = "";
+  });
+
+  ["dragenter", "dragover"].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.add("dragover");
+    }),
+  );
+  ["dragleave", "drop"].forEach((evt) =>
+    dropzone.addEventListener(evt, (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("dragover");
+    }),
+  );
+  dropzone.addEventListener("drop", (e) => {
+    const dt = (e as DragEvent).dataTransfer;
+    if (dt && dt.files.length) addFiles(dt.files);
+  });
+
+  document.getElementById("file-list")!.addEventListener("click", async (e) => {
+    const target = (e.target as HTMLElement).closest(
+      "[data-action]",
+    ) as HTMLElement | null;
+    if (!target) return;
+    const id = target.getAttribute("data-id")!;
+    const action = target.getAttribute("data-action");
+
+    if (action === "delete") {
+      const row = target.closest(".file-row") as HTMLElement;
+      row.classList.add("removing");
+      setTimeout(async () => {
+        await deleteFile(id);
+        await updateFileCount();
+        await renderFiles();
+      }, 260);
+    } else if (action === "download") {
+      const files = await getAllFiles();
+      const file = files.find((f) => f.id === id);
+      if (!file) return;
+      const url = URL.createObjectURL(file.blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = file.name;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+  });
+});
