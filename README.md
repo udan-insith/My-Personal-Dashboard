@@ -1,6 +1,6 @@
 # My-Personal-Dashboard
 
-Demo - https://self-tracker-dashboard.netlify.app/
+Demo - https://self-tracking-dashboard.netlify.app/
 (You will only be able to see a demo NOT any personal data)
 
 Tracking everyday coding tasks, To-Do list + AI Tools Navigator(Claude, OpenAI, Gemini, Groq, Copilot) For Research.
