@@ -85,3 +85,55 @@ function extBadge(name: string, type: string): string {
   const ext = (name.split(".").pop() || "?").toUpperCase().slice(0, 4);
   return ext;
 }
+
+async function updateFileCount(): Promise<void> {
+  const files = await getAllFiles();
+  localStorage.setItem("dash_file_count_v1", JSON.stringify(files.length));
+}
+
+async function renderFiles(): Promise<void> {
+  const files = await getAllFiles();
+  const list = document.getElementById("file-list")!;
+
+  if (files.length === 0) {
+    list.innerHTML = `<p class="empty-note">No files saved yet. Drop something above.</p>`;
+  } else {
+    list.innerHTML = files
+      .map(
+        (f, i) => `
+      <div class="file-row" data-id="${f.id}" style="animation-delay:${i * 0.03}s">
+        <div class="file-badge">${extBadge(f.name, f.type)}</div>
+        <div class="file-info">
+          <div class="file-name">${escapeHtml(f.name)}</div>
+          <div class="file-meta">${DashApp.formatBytes(f.size)} &middot; ${DashApp.timeAgo(f.addedAt)}</div>
+        </div>
+        <div class="file-actions">
+          <button class="icon-btn" data-action="download" data-id="${f.id}" aria-label="Download">
+            <svg viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 19h16"/></svg>
+          </button>
+          <button class="icon-btn danger" data-action="delete" data-id="${f.id}" aria-label="Delete">
+            <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+      </div>`,
+      )
+      .join("");
+  }
+
+  const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
+  document.getElementById("storage-label")!.textContent =
+    `${files.length} file${files.length === 1 ? "" : "s"} &middot; ${DashApp.formatBytes(totalBytes)} used`.replace(
+      "&middot;",
+      "\u00B7",
+    );
+  const cap = 50 * 1024 * 1024; // display-only reference cap
+  const pct = Math.min(100, Math.round((totalBytes / cap) * 100));
+  (document.getElementById("storage-fill") as HTMLElement).style.width =
+    pct + "%";
+}
+
+function escapeHtml(s: string): string {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
