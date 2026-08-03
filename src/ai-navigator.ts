@@ -89,3 +89,8 @@ function render(): void {
     });
   });
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderSidebar("ai");
+  render();
+});
