@@ -51,3 +51,71 @@ function renderList(): void {
     )
     .join("");
 }
+
+function refreshAll(): void {
+  renderProgress();
+  renderList();
+  renderSidebarMini();
+}
+
+function renderSidebarMini(): void {
+  // sidebar mini progress is drawn once on load by nav.ts; re-render it so it stays live too.
+  if (typeof (window as any).renderSidebar === "function") {
+    (window as any).renderSidebar("todo");
+  }
+}
+
+function handleAdd(): void {
+  const input = document.getElementById("new-task") as HTMLInputElement;
+  const priority = (
+    document.getElementById("new-priority") as HTMLSelectElement
+  ).value as "low" | "medium" | "high";
+  const text = input.value.trim();
+  if (!text) return;
+  DashApp.addTodo(text, priority);
+  input.value = "";
+  input.focus();
+  refreshAll();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderSidebar("todo");
+  refreshAll();
+
+  document.getElementById("add-btn")!.addEventListener("click", handleAdd);
+  document.getElementById("new-task")!.addEventListener("keydown", (e) => {
+    if ((e as KeyboardEvent).key === "Enter") handleAdd();
+  });
+
+  document.querySelectorAll(".tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document
+        .querySelectorAll(".tab")
+        .forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentFilter = tab.getAttribute("data-filter") as Filter;
+      renderList();
+    });
+  });
+
+  document.getElementById("todo-list")!.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement).closest(
+      "[data-action]",
+    ) as HTMLElement | null;
+    if (!target) return;
+    const id = target.getAttribute("data-id")!;
+    const action = target.getAttribute("data-action");
+
+    if (action === "toggle") {
+      DashApp.toggleTodo(id);
+      refreshAll();
+    } else if (action === "delete") {
+      const row = target.closest(".todo-item") as HTMLElement;
+      row.classList.add("removing");
+      setTimeout(() => {
+        DashApp.deleteTodo(id);
+        refreshAll();
+      }, 280);
+    }
+  });
+});
