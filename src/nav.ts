@@ -75,3 +75,22 @@ function renderSidebar(activeId: string): void {
   tick();
   setInterval(tick, 1000);
 }
+
+function spawnParticles(count: number = 22): void {
+  const field = document.createElement("div");
+  field.className = "particle-field";
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement("span");
+    p.className = "particle";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDelay = Math.random() * 10 + "s";
+    p.style.animationDuration = 9 + Math.random() * 8 + "s";
+    p.style.opacity = (0.15 + Math.random() * 0.35).toFixed(2);
+    field.appendChild(p);
+  }
+  document.body.appendChild(field);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  spawnParticles();
+});
