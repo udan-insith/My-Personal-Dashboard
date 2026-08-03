@@ -81,3 +81,39 @@ function renderBarChart(): void {
     },
   );
 }
+
+function renderActivity(): void {
+  const todos = DashApp.getTodos()
+    .slice()
+    .sort((a: any, b: any) => b.createdAt - a.createdAt)
+    .slice(0, 5);
+  const list = document.getElementById("activity-list")!;
+  if (todos.length === 0) {
+    list.innerHTML = `<p class="empty-note">Nothing logged yet. Tasks you add will show up here.</p>`;
+    return;
+  }
+  list.innerHTML = todos
+    .map(
+      (t: any) => `
+      <div class="activity-item">
+        <span class="activity-dot" style="${t.done ? "" : "opacity:.3;box-shadow:none;"}"></span>
+        <span style="${t.done ? "color:var(--dim);text-decoration:line-through;" : ""}">${escapeHtml(t.text)}</span>
+        <span class="activity-time">${DashApp.timeAgo(t.createdAt)}</span>
+      </div>`,
+    )
+    .join("");
+}
+
+function escapeHtml(s: string): string {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderSidebar("dashboard");
+  renderStats();
+  renderDonut();
+  renderBarChart();
+  renderActivity();
+});
